@@ -15,10 +15,28 @@ let particles = [];
 let ripples = [];
 let animationId;
 
+// Initialize canvas for ripple effect
+function setupRippleCanvas() {
+  canvas = document.getElementById('ripple-canvas');
+  if (canvas) {
+    ctx = canvas.getContext('2d');
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  }
+}
+
+function resizeCanvas() {
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+  setupRippleCanvas();
   initRippleEffects();
-  startAnimation();
+  // startAnimation();
   initScrollAnimations();
   initNavigation();
 });
