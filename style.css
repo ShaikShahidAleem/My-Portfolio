@@ -237,8 +237,6 @@
 }
 
 .nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
@@ -1050,7 +1048,6 @@ select.form-control {
 .hero-text {
   font-size: 1rem;
   font-weight: 400;
-  color: var(--color-text-secondary);
   line-height: 1.7;
   margin: 0;
   font-family: var(--font-family-base);
