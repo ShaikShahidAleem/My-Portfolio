@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMADILLO - AI-Driven DevSecOps for Multi-Cloud Resilience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a0a0f;
+            --secondary-dark: #1a1a2e;
+            --deep-navy: #16213e;
+            --accent-purple: #6366f1;
+            --accent-blue: #3b82f6;
+            --neon-blue: #06b6d4;
+            --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-cyber: linear-gradient(135deg, #0c1445 0%, #1e1b4b 50%, #312e81 100%);
+            --gradient-neon: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%);
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --text-muted: #64748b;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --error-red: #ef4444;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            --shadow-neon: 0 0 30px rgba(6, 182, 212, 0.4);
+            --shadow-purple: 0 0 40px rgba(99, 102, 241, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 900;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient-neon);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-cyber);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(6, 182, 212, 0.03) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(99, 102, 241, 0.03) 50%, transparent 70%);
+            animation: scanLines 3s linear infinite;
+        }
+
+        @keyframes scanLines {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-neon);
+            color: white;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-light);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-border);
+            border-color: var(--neon-blue);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInRight 0.8s ease-out 0.2s both;
+        }
+
+        .cyber-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-dashboard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success-green);
+            box-shadow: 0 0 10px var(--success-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .dashboard-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .cloud-providers {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .cloud-provider {
+            flex: 1;
+            height: 60px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .cloud-provider:hover {
+            border-color: var(--neon-blue);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .cloud-provider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-neon);
+            opacity: 0;
+            border-radius: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .cloud-provider:hover::before {
+            opacity: 0.1;
+        }
+
+        .provider-icon {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            z-index: 1;
+        }
+
+        .network-topology {
+            flex: 1;
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .network-nodes {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--neon-blue);
+        }
+
+        .node:nth-child(1) { top: 20%; left: 20%; }
+        .node:nth-child(2) { top: 30%; left: 50%; }
+        .node:nth-child(3) { top: 20%; left: 80%; }
+        .node:nth-child(4) { top: 60%; left: 30%; }
+        .node:nth-child(5) { top: 50%; left: 70%; }
+        .node:nth-child(6) { top: 80%; left: 50%; }
+
+        .node::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: nodeGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes nodeGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            opacity: 0.6;
+            animation: dataFlow 3s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { opacity: 0; }
+        }
+
+        .security-metrics {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .metric-item {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+        }
+
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--success-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-gray);
+        }
+
+        .threat-detection {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--success-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            animation: threatScan 4s linear infinite;
+        }
+
+        @keyframes threatScan {
+            0%, 90% { transform: rotate(0deg); }
+            95%, 100% { transform: rotate(360deg); }
+        }
+        .cyber-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .cloud-mesh {
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, var(--neon-blue) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, var(--accent-purple) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, var(--accent-blue) 0%, transparent 40%);
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 4rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* What is ARMADILLO */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-card {
+            background: var(--glass-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-neon);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .about-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .about-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-neon);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .about-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .about-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--secondary-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-purple);
+            box-shadow: var(--shadow-purple);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-purple);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .feature-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-metrics {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: var(--gradient-cyber);
+        }
+
+        .architecture-visual {
+            margin-top: 3rem;
+            padding: 3rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .layer {
+            background: var(--glass-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .layer:nth-child(1) { border-left: 4px solid var(--neon-blue); }
+        .layer:nth-child(2) { border-left: 4px solid var(--accent-blue); }
+        .layer:nth-child(3) { border-left: 4px solid var(--accent-purple); }
+        .layer:nth-child(4) { border-left: 4px solid var(--success-green); }
+
+        .layer:hover {
+            transform: translateX(10px);
+            border-color: var(--neon-blue);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .layer-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .layer:nth-child(1) .layer-icon { background: var(--neon-blue); }
+        .layer:nth-child(2) .layer-icon { background: var(--accent-blue); }
+        .layer:nth-child(3) .layer-icon { background: var(--accent-purple); }
+        .layer:nth-child(4) .layer-icon { background: var(--success-green); }
+
+        .layer-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .layer-content p {
+            color: var(--text-gray);
+            line-height: 1.5;
+        }
+
+        /* Performance Metrics */
+        .metrics {
+            background: var(--primary-dark);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-neon);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: var(--shadow-neon);
+        }
+
+        .metric-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        /* Comparison Section */
+        .comparison-table {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            margin-top: 3rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--gradient-cyber);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        th:first-child {
+            border-radius: 20px 0 0 0;
+        }
+
+        th:last-child {
+            border-radius: 0 20px 0 0;
+        }
+
+        td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .check {
+            color: var(--success-green);
+            font-size: 1.5rem;
+        }
+
+        .cross {
+            color: var(--error-red);
+            font-size: 1.5rem;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: var(--glass-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--success-green);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success-green);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .benefit-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-cyber);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons-final {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-link {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--neon-blue);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .cta-title {
+                font-size: 2.25rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .layer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animate on scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .terminal-prompt::before {
+            content: '$ ';
+            color: var(--success-green);
+            font-weight: 600;
+        }
+
+        .terminal-command {
+            color: var(--neon-blue);
+        }
+
+        .terminal-success {
+            color: var(--success-green);
+        }
+
+        .terminal-info {
+            color: var(--neon-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">ARMADILLO</div>
+            <ul class="nav-links">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#performance" class="nav-link">Performance</a></li>
+                <li><a href="#comparison" class="nav-link">Compare</a></li>
+                <li><a href="#benefits" class="nav-link">Benefits</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">ARMADILLO – AI-Driven DevSecOps for Multi-Cloud Resilience</h1>
+                <p class="hero-subtitle">
+                    A next-generation hybrid DevSecOps framework integrating multi-tool orchestration, AI-augmented threat detection, zero-trust enforcement, dynamic secret management, and cloud-agnostic policy automation across AWS, Azure, and GCP.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#features" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Explore Features
+                    </a>
+                    <a href="https://github.com" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        View GitHub
+                    </a>
+                </div>
+                <div class="code-block">
+                    <span class="terminal-command">armadillo init --framework=hybrid --clouds=aws,azure,gcp</span><br>
+                    <span class="terminal-success">✓ Multi-tool orchestration ready</span><br>
+                    <span class="terminal-success">✓ AI threat detection active</span><br>
+                    <span class="terminal-info">ARMADILLO framework initialized successfully</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="cyber-illustration">
+                    <div class="security-dashboard">
+                        <div class="dashboard-header">
+                            <div class="status-indicator"></div>
+                            <span class="dashboard-title">ARMADILLO Security Monitor</span>
+                        </div>
+                        
+                        <div class="cloud-providers">
+                            <div class="cloud-provider">
+                                <i class="fab fa-aws provider-icon" title="AWS"></i>
+                            </div>
+                            <div class="cloud-provider">
+                                <i class="fab fa-microsoft provider-icon" title="Azure"></i>
+                            </div>
+                            <div class="cloud-provider">
+                                <i class="fab fa-google provider-icon" title="GCP"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="network-topology">
+                            <div class="network-nodes">
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                                <div class="node"></div>
+                            </div>
+                            <div class="connections">
+                                <div class="connection-line" style="top: 25%; left: 25%; width: 50%; transform: rotate(15deg);"></div>
+                                <div class="connection-line" style="top: 35%; left: 25%; width: 50%; transform: rotate(-10deg); animation-delay: 1s;"></div>
+                                <div class="connection-line" style="top: 65%; left: 35%; width: 40%; transform: rotate(25deg); animation-delay: 2s;"></div>
+                            </div>
+                            <div class="threat-detection">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="security-metrics">
+                            <div class="metric-item">
+                                <span class="metric-value">94%</span>
+                                <span class="metric-label">Secure</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">0</span>
+                                <span class="metric-label">Threats</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-value">100%</span>
+                                <span class="metric-label">Uptime</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is ARMADILLO Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">What is ARMADILLO?</h2>
+            <p class="section-subtitle">
+                ARMADILLO is a production-ready multi-cloud DevSecOps framework designed to automate security, detect threats in real time, ensure policy consistency across cloud providers, and reduce developer cognitive load through intelligent orchestration and AI-driven insights.
+            </p>
+            <div class="about-grid">
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="about-title">Multi-Tool Consensus</h3>
+                    <p class="about-description">
+                        Resolves Infrastructure as Code tool contradictions using intelligent multi-tool consensus and aggregation algorithms.
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="about-title">Hybrid Security Analysis</h3>
+                    <p class="about-description">
+                        Blends static code analysis with dynamic runtime monitoring for comprehensive threat detection and prevention.
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="about-title">AI-Powered Detection</h3>
+                    <p class="about-description">
+                        Advanced machine learning algorithms provide anomaly detection and behavioral analysis for zero-day threats.
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="about-title">Cloud-Agnostic Security</h3>
+                    <p class="about-description">
+                        Unified security policies and enforcement across AWS, Azure, and GCP without vendor lock-in dependencies.
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="about-title">Cryptographic Logging</h3>
+                    <p class="about-description">
+                        Tamper-proof logging using RSA accumulator cryptography ensures provable audit integrity and compliance.
+                    </p>
+                </div>
+                <div class="about-card animate-on-scroll">
+                    <div class="about-icon">
+                        <i class="fas fa-user-minus"></i>
+                    </div>
+                    <h3 class="about-title">Alert Optimization</h3>
+                    <p class="about-description">
+                        Tiered alerting system reduces developer alert fatigue while maintaining comprehensive security coverage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <h2 class="section-title">Core Features</h2>
+            <p class="section-subtitle">
+                Enterprise-grade DevSecOps capabilities powered by AI and cloud-native technologies
+            </p>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">Multi-Tool Orchestration Engine</h3>
+                    <p class="feature-description">
+                        Checkov, tfsec, and Terrascan run in parallel with consensus-based aggregation for comprehensive Infrastructure as Code security analysis.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">97% Precision</span>
+                        <span class="metric">40% Fewer False Positives</span>
+                    </div>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Augmented Runtime Threat Detection</h3>
+                    <p class="feature-description">
+                        LSTM-based anomaly detection with real-time telemetry across Kubernetes clusters for proactive threat identification.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">95% Accuracy</span>
+                        <span class="metric">1.8s Latency</span>
+                    </div>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="feature-title">Zero Trust Security Enforcement</h3>
+                    <p class="feature-description">
+                        Istio service mesh integration with mTLS, micro-segmentation, and continuous authorization for comprehensive zero-trust architecture.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">100% mTLS</span>
+                        <span class="metric">Continuous Auth</span>
+                    </div>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 class="feature-title">Dynamic Secret Management</h3>
+                    <p class="feature-description">
+                        HashiCorp Vault integration with time-bound credentials, automatic rotation, and elimination of static secrets.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">Zero Static Secrets</span>
+                        <span class="metric">Auto-Rotation</span>
+                    </div>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="feature-title">Cloud-Agnostic Security Layer</h3>
+                    <p class="feature-description">
+                        Unified security policies across AWS, Azure, and GCP with 100% policy consistency and 70% reduction in vendor lock-in.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">100% Consistency</span>
+                        <span class="metric">70% Less Lock-in</span>
+                    </div>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Developer Experience Optimization</h3>
+                    <p class="feature-description">
+                        IDE plugins for VS Code and IntelliJ with inline fixes, remediation suggestions, and 73% reduction in alert fatigue.
+                    </p>
+                    <div class="feature-metrics">
+                        <span class="metric">73% Alert Reduction</span>
+                        <span class="metric">IDE Integration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="section architecture" id="architecture">
+        <div class="container">
+            <h2 class="section-title">Architecture Preview</h2>
+            <p class="section-subtitle">
+                Four-layer security architecture designed for enterprise-scale multi-cloud deployments
+            </p>
+            <div class="architecture-visual animate-on-scroll">
+                <div class="architecture-layers">
+                    <div class="layer">
+                        <div class="layer-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Multi-Tool Orchestration Layer</h3>
+                            <p>Parallel execution of Checkov, tfsec, Terrascan with intelligent consensus algorithms and results aggregation</p>
+                        </div>
+                    </div>
+                    <div class="layer">
+                        <div class="layer-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Hybrid Security Analysis</h3>
+                            <p>Seamless integration of static code analysis with dynamic runtime monitoring and AI-powered threat detection</p>
+                        </div>
+                    </div>
+                    <div class="layer">
+                        <div class="layer-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Cloud-Agnostic Abstraction</h3>
+                            <p>Unified security policies and enforcement mechanisms across AWS, Azure, and GCP with consistent behavior</p>
+                        </div>
+                    </div>
+                    <div class="layer">
+                        <div class="layer-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="layer-content">
+                            <h3>Developer Experience Layer</h3>
+                            <p>IDE plugins, inline remediation, tiered alerting, and comprehensive developer tools for streamlined workflows</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics Section -->
+    <section class="section metrics" id="performance">
+        <div class="container">
+            <h2 class="section-title">Performance & Impact Metrics</h2>
+            <p class="section-subtitle">
+                Proven results from enterprise deployments across multiple industries and cloud environments
+            </p>
+            <div class="metrics-grid">
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">94%</div>
+                    <div class="metric-label">Vulnerability Detection</div>
+                </div>
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">95%</div>
+                    <div class="metric-label">Runtime Threat Detection</div>
+                </div>
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">< 4%</div>
+                    <div class="metric-label">Pipeline Overhead</div>
+                </div>
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">73%</div>
+                    <div class="metric-label">Alert Fatigue Reduction</div>
+                </div>
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">70%</div>
+                    <div class="metric-label">Cloud Migration Effort Reduction</div>
+                </div>
+                <div class="metric-card animate-on-scroll">
+                    <div class="metric-number">10K</div>
+                    <div class="metric-label">Security Events/Second</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="section" id="comparison">
+        <div class="container">
+            <h2 class="section-title">ARMADILLO vs Traditional DevSecOps</h2>
+            <p class="section-subtitle">
+                See how ARMADILLO transforms traditional security approaches with AI-driven automation
+            </p>
+            <div class="comparison-table animate-on-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Traditional DevSecOps</th>
+                            <th>ARMADILLO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IaC Scanning</td>
+                            <td>Single-tool approach</td>
+                            <td>Multi-tool consensus engine</td>
+                        </tr>
+                        <tr>
+                            <td>Threat Detection</td>
+                            <td>Signature-based detection</td>
+                            <td>AI-LSTM behavioral detection</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-Cloud Support</td>
+                            <td>Limited vendor-specific</td>
+                            <td>100% cloud-agnostic</td>
+                        </tr>
+                        <tr>
+                            <td>Secret Management</td>
+                            <td>Static keys & credentials</td>
+                            <td>Dynamic short-lived secrets</td>
+                        </tr>
+                        <tr>
+                            <td>Logging & Audit</td>
+                            <td>Standard application logs</td>
+                            <td>Cryptographic append-only logs</td>
+                        </tr>
+                        <tr>
+                            <td>Developer Experience</td>
+                            <td>High alert fatigue</td>
+                            <td>Tiered alerts + IDE plugins</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-World Benefits Section -->
+    <section class="section" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Real-World Benefits</h2>
+            <p class="section-subtitle">
+                Transform your security posture with measurable business impact
+            </p>
+            <div class="benefits-grid">
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h3 class="benefit-title">Prevent Misconfigurations Early</h3>
+                    <p class="benefit-description">
+                        Catch security vulnerabilities in Infrastructure as Code before deployment, reducing remediation costs by up to 90%.
+                    </p>
+                </div>
+                <div class="benefit-card animate-on-scroll">  
+                    <div class="benefit-icon">
+                        <i class="fas fa-eye"></i>
+                        <i class="fas fa-radar"></i>
+                    </div>
+                    <h3 class="benefit-title">Detect Zero-Day Anomalies</h3>
+                    <p class="benefit-description">
+                        AI-powered behavioral analysis identifies unknown threats and anomalies that traditional signature-based systems miss.
+                    </p>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="benefit-title">Ensure Continuous Compliance</h3>
+                    <p class="benefit-description">
+                        Automated policy enforcement and monitoring ensure continuous compliance across all cloud environments and regulations.
+                    </p>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="benefit-title">Improve Developer Productivity</h3>
+                    <p class="benefit-description">
+                        Integrated IDE plugins and inline remediation suggestions allow developers to fix security issues without leaving their workflow.
+                    </p>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="benefit-title">Enable Reliable Multi-Cloud</h3>
+                    <p class="benefit-description">
+                        Cloud-agnostic security policies enable seamless multi-cloud operations without vendor lock-in or configuration complexity.
+                    </p>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="benefit-title">Strengthen Audit & Forensics</h3>
+                    <p class="benefit-description">
+                        Cryptographic logging ensures tamper-proof audit trails and forensic capabilities for compliance and incident response.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Secure. Intelligent. Cloud-Agnostic.</h2>
+                <p class="cta-subtitle">
+                    Experience the future of DevSecOps with ARMADILLO. Transform your security posture with AI-driven automation across multiple cloud environments.
+                </p>
+                <div class="cta-buttons-final">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-download"></i>
+                        Download Whitepaper
+                    </a>
+                    <a href="https://github.com" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        Visit GitHub Repository
+                    </a>
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-calendar"></i>
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#features" class="footer-link">Features</a>
+                <a href="#architecture" class="footer-link">Architecture</a>
+                <a href="#performance" class="footer-link">Performance</a>
+                <a href="#comparison" class="footer-link">Comparison</a>
+                <a href="https://github.com" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <p>&copy; 2024 ARMADILLO. Enterprise DevSecOps Framework. Built with ❤️ for Multi-Cloud Security.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(10, 10, 15, 0.98)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(10, 10, 15, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Performance counter animation
+        const counters = document.querySelectorAll('.metric-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = counter.textContent;
+                    const hasPercent = target.includes('%');
+                    const hasPlus = target.includes('+');
+                    const isLessThan = target.includes('<');
+                    const hasK = target.includes('K');
+                    
+                    let targetNumber = parseFloat(target.replace(/[^\d.]/g, ''));
+                    if (hasK) targetNumber *= 1000;
+                    
+                    if (isLessThan) {
+                        // Special handling for "< 4%" type metrics
+                        counter.textContent = '< 4%';
+                        return;
+                    }
+                    
+                    let current = 0;
+                    const increment = targetNumber / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= targetNumber) {
+                            current = targetNumber;
+                            clearInterval(timer);
+                        }
+                        
+                        let displayValue = Math.floor(current);
+                        if (hasK) {
+                            displayValue = (displayValue / 1000) + 'K';
+                        } else if (hasPercent) {
+                            displayValue += '%';
+                        }
+                        
+                        counter.textContent = displayValue;
+                    }, 30);
+                    
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Add hover effects to feature cards
+        document.querySelectorAll('.feature-card, .benefit-card, .about-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    background-color: rgba(255, 255, 255, 0.3);
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    pointer-events: none;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add typing effect to terminal
+        const terminalCommands = document.querySelectorAll('.terminal-command');
+        terminalCommands.forEach(command => {
+            const text = command.textContent;
+            command.textContent = '';
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    command.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 50);
+        });
+
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.3;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Add floating animation to architecture layers
+        document.querySelectorAll('.layer').forEach((layer, index) => {
+            layer.style.animation = `float 6s ease-in-out infinite ${index * 0.5}s`;
+        });
+    </script>
+</body>
+</html>
