@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Code Review Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-robot"></i>
+                <span>CodeReview AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#tech">Tech Stack</a>
+                <a href="#support">Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-sparkles"></i>
+                    <span>Powered by Google Gemini AI - FREE!</span>
+                </div>
+                <h1 class="hero-title">
+                    AI-Powered <span class="gradient-text">Code Review</span> Assistant
+                </h1>
+                <p class="hero-description">
+                    Get instant, intelligent code reviews with AI analysis. Improve code quality, 
+                    catch security vulnerabilities, and optimize performance - all powered by free Google Gemini AI.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/ShaikShahidAleem/Code-review-assistant" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="#" class="btn btn-secondary" onclick="openDemo()">
+                        <i class="fas fa-play"></i>
+                        Try now
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">12+</span>
+                        <span class="stat-label">Languages</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">FREE</span>
+                        <span class="stat-label">Google Gemini AI</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Requests/Min</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-preview">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="code-title">AI Code Review</span>
+                    </div>
+                    <div class="code-content">
+                        <pre><code class="language-javascript">// AI Analysis Results
+const review = await analyzeCode(code);
+
+// ✅ Code Quality: Excellent
+// 🔒 Security: No vulnerabilities found
+// ⚡ Performance: Optimized
+// 📝 Best Practices: Followed
+
+return {
+  score: 95,
+  suggestions: [
+    "Consider using const instead of let",
+    "Add error handling for edge cases"
+  ]
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need for intelligent code reviews</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Advanced AI analyzes your code for quality, security vulnerabilities, and performance optimizations using Google Gemini.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Modern UI</h3>
+                    <p>Beautiful, responsive interface with dark mode support that adapts to your preferences and coding environment.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Comprehensive Reviews</h3>
+                    <p>Detailed analysis covering code quality, security, performance, and adherence to best practices across all major languages.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Review History</h3>
+                    <p>Track all your past code reviews and monitor improvement over time with local SQLite database storage.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Dark Mode</h3>
+                    <p>Easy on the eyes with automatic theme switching and support for both light and dark modes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Fast & Free</h3>
+                    <p>Powered by Google Gemini's free tier with 15 requests per minute and 1 million tokens per day - no credit card required!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2>Supported Languages</h2>
+                <p>Comprehensive support for all major programming languages</p>
+            </div>
+            <div class="languages-grid">
+                <div class="language-item">
+                    <i class="fab fa-js-square"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-js-square"></i>
+                    <span>TypeScript</span>
+                </div>
+                <div class="language-item">
+                    <fab class="fab fa-python"></fab>
+                    <i class="fab fa-python"></i>
+                    <span>Python</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-java"></i>
+                    <span>Java</span>
+                </div>
+                <div class="language-item">
+                    <i class="fas fa-code"></i>
+                    <span>C/C++</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-golang"></i>
+                    <span>Go</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-ruby"></i>
+                    <span>Ruby</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-php"></i>
+                    <span>PHP</span>
+                </div>
+                <div class="language-item">
+                    <i class="fas fa-code"></i>
+                    <span>C#</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML</span>
+                </div>
+                <div class="language-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS</span>
+                </div>
+                <div class="language-item">
+                    <i class="fas fa-file-code"></i>
+                    <span>JSON</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to improve your code quality?</h2>
+                <p>Join thousands of developers who trust AI for better code reviews</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/yourusername/code-review-assistant" class="btn btn-primary" target="_blank">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                    <a href="#" class="btn btn-outline" onclick="openDemo()">
+                        <i class="fas fa-play"></i>
+                        Try Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="support" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-logo">
+                        <i class="fas fa-robot"></i>
+                        <span>CodeReview AI</span>
+                    </div>
+                    <p>Made with ❤️ by Shaik Shahid Aleem</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>
+                    <a href="https://github.com/ShaikShahidAleem/Code-review-assistant/issues" target="_blank">Report Bug</a>
+                    <a href="mailto:shahidaleem070@gmail.com">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
